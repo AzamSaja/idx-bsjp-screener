@@ -122,6 +122,14 @@ node scripts/testEngine.mjs
 node scripts/testRealScreener.mjs
 ```
 
+#### Automated Daily Sync via GitHub Actions (Smart Window)
+A scheduled workflow (`.github/workflows/sync-idx.yml`) runs automatically on trading days (Monday–Friday) during the BSJP institutional momentum windows:
+- **15:35 WIB (08:35 UTC):** Early radar accumulation scan.
+- **15:50 WIB (08:50 UTC):** Pre-closing auction entry snapshot.
+- **16:15 WIB (09:15 UTC):** Official market close final settlement snapshot.
+
+When new data is detected, the workflow automatically commits the snapshot to `main`, triggering a seamless Vercel production redeploy. You can also trigger a manual sync anytime via GitHub's **Actions -> Run workflow** button.
+
 ### 4. Start Development Server
 ```bash
 npm run dev
