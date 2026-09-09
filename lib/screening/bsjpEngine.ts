@@ -4,7 +4,8 @@ import {
   BsjpScoreBreakdown, 
   TradePlan, 
   BsjpCandidate, 
-  ActionSignal 
+  ActionSignal,
+  BriefingMetadata
 } from "@/types/screening";
 import { DEFAULT_BSJP_PARAMS, BSJP_SCORE_WEIGHTS } from "./defaultParams";
 import { 
@@ -270,7 +271,8 @@ export function screenStock(
   quote: StockQuote,
   brokerSummary: BrokerSummary,
   bidAskDepth: BidAskDepth,
-  params: BsjpFilterParams = DEFAULT_BSJP_PARAMS
+  params: BsjpFilterParams = DEFAULT_BSJP_PARAMS,
+  briefingMeta?: BriefingMetadata
 ): BsjpCandidate {
   const { passed, failedRules } = evaluateBsjpFilters(quote, brokerSummary, bidAskDepth, params);
   const scoreBreakdown = calculateBsjpScore(quote, brokerSummary, bidAskDepth);
@@ -291,6 +293,7 @@ export function screenStock(
     passedFilters: passed,
     failedRules,
     proximityToHighPct,
+    briefingMeta,
   };
 }
 

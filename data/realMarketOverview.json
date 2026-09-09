@@ -1,0 +1,71 @@
+{
+  "ihsg": {
+    "current": 7448.51,
+    "change": -1.49,
+    "changePct": -0.02
+  },
+  "foreignNetFlowIdr": -602097791900.0,
+  "marketTurnoverIdr": 14925104647800.0,
+  "breadth": {
+    "advancers": 325,
+    "decliners": 337,
+    "unchanged": 301
+  },
+  "session": {
+    "phase": "MARKET_CLOSED",
+    "phaseLabel": "Pasar Tutup (Data Resmi Penutupan BEI)",
+    "isBsjpWindow": false,
+    "timeWib": "16:15:00 WIB"
+  },
+  "bandarmology": {
+    "topDominantBroker": "XL",
+    "institutionalSharePct": 36.29,
+    "retailSharePct": 35.86,
+    "cr1Pct": 12.92,
+    "cr3Pct": 33.19,
+    "cr5Pct": 47.76
+  },
+  "tradeDate": "2026-09-09",
+  "topBrokers": [
+    {
+      "Rank": 1,
+      "IDFirm": "XL",
+      "FirmName": "Stockbit Sekuritas Digital",
+      "ValueRpB": 4178.54,
+      "SharePct": 12.92,
+      "Category": "Retail"
+    },
+    {
+      "Rank": 2,
+      "IDFirm": "AK",
+      "FirmName": "UBS Sekuritas Indonesia",
+      "ValueRpB": 3370.31,
+      "SharePct": 10.42,
+      "Category": "Institutional/Foreign"
+    },
+    {
+      "Rank": 3,
+      "IDFirm": "CC",
+      "FirmName": "MANDIRI SEKURITAS",
+      "ValueRpB": 3185.83,
+      "SharePct": 9.85,
+      "Category": "Institutional/Foreign"
+    },
+    {
+      "Rank": 4,
+      "IDFirm": "YU",
+      "FirmName": "CGS International Sekuritas Indonesia",
+      "ValueRpB": 2384.91,
+      "SharePct": 7.38,
+      "Category": "General"
+    },
+    {
+      "Rank": 5,
+      "IDFirm": "ZP",
+      "FirmName": "Maybank Sekuritas Indonesia",
+      "ValueRpB": 2325.78,
+      "SharePct": 7.19,
+      "Category": "Institutional/Foreign"
+    }
+  ]
+}

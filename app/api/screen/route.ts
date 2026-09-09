@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAllStockSnapshots } from "@/lib/market-data/mockFeed";
+import { getRealIdxStockSnapshots, hasRealDataAvailable } from "@/lib/market-data/idxLocalData";
 import { screenStock } from "@/lib/screening/bsjpEngine";
 import { DEFAULT_BSJP_PARAMS } from "@/lib/screening/defaultParams";
 import { BsjpFilterParams, FilterPresetKey } from "@/types/screening";
@@ -9,6 +10,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const preset = (searchParams.get("preset") as FilterPresetKey) || "ALL";
+    const requestedSource = searchParams.get("dataSource") || "REAL";
 
     // Build filter parameters from query or defaults
     const params: BsjpFilterParams = {
@@ -44,11 +46,21 @@ export async function GET(request: NextRequest) {
         : DEFAULT_BSJP_PARAMS.minBidAskRatio,
     };
 
-    const rawSnapshots = getAllStockSnapshots();
+    // Determine dataset to load: Real IDX (960+ stocks) vs Simulation Mock
+    const isReal = requestedSource === "REAL" && hasRealDataAvailable();
+    const rawSnapshots = isReal
+      ? getRealIdxStockSnapshots()
+      : getAllStockSnapshots();
 
     // Run screening pipeline
-    let candidates = rawSnapshots.map(({ quote, brokerSummary, bidAskDepth }) => {
-      return screenStock(quote, brokerSummary, bidAskDepth, params);
+    let candidates = rawSnapshots.map((item: any) => {
+      return screenStock(
+        item.quote,
+        item.brokerSummary,
+        item.bidAskDepth,
+        params,
+        item.briefingMeta
+      );
     });
 
     // Apply quick filters preset
@@ -58,7 +70,8 @@ export async function GET(request: NextRequest) {
       candidates = candidates.filter(
         (c) =>
           c.brokerSummary.top3ConcentrationRatio >= 1.4 ||
-          c.brokerSummary.foreignNetFlowIdr > 5_000_000_000
+          c.brokerSummary.foreignNetFlowIdr > 5_000_000_000 ||
+          c.briefingMeta?.stealthAccumulation === true
       );
     } else if (preset === "BREAKOUT_52W") {
       candidates = candidates.filter(
@@ -76,6 +89,7 @@ export async function GET(request: NextRequest) {
       matchingPreset: candidates.length,
       passedStrictBsjp: candidates.filter((c) => c.passedFilters).length,
       strongBuyCount: candidates.filter((c) => c.signal === "STRONG_BUY").length,
+      dataSource: isReal ? "REAL" : "SIMULATION",
     };
 
     return NextResponse.json({
@@ -85,6 +99,7 @@ export async function GET(request: NextRequest) {
         stats,
         preset,
         params,
+        dataSource: stats.dataSource,
       },
     });
   } catch (error: any) {
@@ -94,4 +109,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-

@@ -36,6 +36,14 @@ export interface TradePlan {
 
 export type ActionSignal = "STRONG_BUY" | "BUY" | "WATCH" | "OVEREXTENDED" | "AVOID";
 
+export interface BriefingMetadata {
+  stealthAccumulation: boolean;
+  smartMoneyDelta?: number | null;
+  priority?: string | null;
+  alphaScore?: number | null;
+  auditOpinion?: string | null;
+}
+
 export interface BsjpCandidate {
   stock: StockQuote;
   brokerSummary: BrokerSummary;
@@ -47,6 +55,7 @@ export interface BsjpCandidate {
   passedFilters: boolean;
   failedRules: string[];
   proximityToHighPct: number;   // 100% means closed at absolute High
+  briefingMeta?: BriefingMetadata;
 }
 
 export type FilterPresetKey = 

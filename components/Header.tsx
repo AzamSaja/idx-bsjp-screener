@@ -8,7 +8,9 @@ import {
   Bell, 
   RefreshCw, 
   Flame, 
-  SlidersHorizontal 
+  SlidersHorizontal,
+  Database,
+  Activity
 } from "lucide-react";
 import { MarketOverview } from "@/types/market";
 
@@ -19,6 +21,8 @@ interface HeaderProps {
   onOpenAlerts: () => void;
   onOpenSettings: () => void;
   isRefreshing: boolean;
+  dataSource: "REAL" | "SIMULATION";
+  onToggleDataSource: (source: "REAL" | "SIMULATION") => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -28,6 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAlerts,
   onOpenSettings,
   isRefreshing,
+  dataSource,
+  onToggleDataSource,
 }) => {
   const [timeStr, setTimeStr] = useState<string>("--:--:-- WIB");
 
@@ -70,8 +76,38 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Center Live Session & Clock */}
-      <div className="flex items-center gap-3 text-xs font-mono">
+      {/* Center Data Mode Toggle & Live Session Clock */}
+      <div className="flex items-center flex-wrap gap-2 text-xs font-mono">
+        {/* Source Toggle Switcher */}
+        <div className="flex items-center rounded-lg bg-slate-900/90 p-0.5 border border-slate-800 shadow-inner">
+          <button
+            type="button"
+            onClick={() => onToggleDataSource("REAL")}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition text-xs font-medium ${
+              dataSource === "REAL"
+                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+            title="Data Resmi Penutupan BEI 963 Emiten (idx-bei snapshot)"
+          >
+            <Database className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="font-semibold">Data Riil BEI (963)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onToggleDataSource("SIMULATION")}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition text-xs font-medium ${
+              dataSource === "SIMULATION"
+                ? "bg-blue-500/20 text-blue-300 border border-blue-500/40 shadow-sm"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+            title="Simulator Pasar Intraday Real-time"
+          >
+            <Activity className="w-3.5 h-3.5 text-blue-400" />
+            <span className="font-semibold">Simulator</span>
+          </button>
+        </div>
+
         <div className={`px-2.5 py-1 rounded-md border flex items-center gap-1.5 ${
           isBsjpActive 
             ? "bg-amber-500/10 border-amber-500/40 text-amber-300 animate-pulse-subtle" 
@@ -81,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="font-semibold">{overview?.phaseLabel || "Loading Market Phase..."}</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">
+        <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">
           <Clock className="w-3.5 h-3.5 text-blue-400" />
           <span>{timeStr}</span>
         </div>
@@ -128,4 +164,3 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
-

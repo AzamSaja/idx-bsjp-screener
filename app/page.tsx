@@ -19,6 +19,7 @@ export default function Home() {
   const [stats, setStats] = useState<any>(null);
   const [selectedPreset, setSelectedPreset] = useState<FilterPresetKey>("STRICT_BSJP");
   const [customParams, setCustomParams] = useState<BsjpFilterParams>(DEFAULT_BSJP_PARAMS);
+  const [dataSource, setDataSource] = useState<"REAL" | "SIMULATION">("REAL");
 
   const [selectedCandidate, setSelectedCandidate] = useState<BsjpCandidate | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,7 @@ export default function Home() {
   // Fetch Market Overview
   const fetchOverview = useCallback(async () => {
     try {
-      const res = await fetch("/api/market-overview");
+      const res = await fetch(`/api/market-overview?dataSource=${dataSource}`);
       const data = await res.json();
       if (data.success) {
         setOverview(data.data);
@@ -40,13 +41,14 @@ export default function Home() {
     } catch (err) {
       console.error("Failed to fetch market overview:", err);
     }
-  }, []);
+  }, [dataSource]);
 
   // Fetch Candidates
   const fetchCandidates = useCallback(async () => {
     setIsRefreshing(true);
     try {
       const queryParams = new URLSearchParams({
+        dataSource,
         preset: selectedPreset,
         minValueIdr: customParams.minValueIdr.toString(),
         minVolumeAdvRatio: customParams.minVolumeAdvRatio.toString(),
@@ -56,6 +58,8 @@ export default function Home() {
         requireTrendAlignment: customParams.requireTrendAlignment.toString(),
         excludeNotasiKhusus: customParams.excludeNotasiKhusus.toString(),
         excludeFCA: customParams.excludeFCA.toString(),
+        minTop3Ratio: customParams.minTop3Ratio.toString(),
+        minBidAskRatio: customParams.minBidAskRatio.toString(),
       });
 
       const res = await fetch(`/api/screen?${queryParams.toString()}`);
@@ -78,7 +82,7 @@ export default function Home() {
       setIsLoading(false);
       setIsRefreshing(false);
     }
-  }, [selectedPreset, customParams, selectedCandidate]);
+  }, [dataSource, selectedPreset, customParams, selectedCandidate]);
 
   // Initial Load
   useEffect(() => {
@@ -92,7 +96,7 @@ export default function Home() {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [selectedPreset, customParams]);
+  }, [dataSource, selectedPreset, customParams]);
 
   const handleManualRefresh = () => {
     fetchOverview();
@@ -122,7 +126,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0a0c10] text-slate-100 flex flex-col font-sans">
-      {/* 1. Header with Clock & Market Status */}
+      {/* 1. Header with Clock, Data Mode Switcher & Market Status */}
       <Header
         overview={overview}
         onRefresh={handleManualRefresh}
@@ -130,6 +134,8 @@ export default function Home() {
         onOpenAlerts={() => setIsAlertsOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         isRefreshing={isRefreshing}
+        dataSource={dataSource}
+        onToggleDataSource={setDataSource}
       />
 
       {/* 2. Market Overview Bar */}
