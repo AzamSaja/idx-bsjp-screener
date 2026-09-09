@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync:data": "python scripts/syncIdxRealData.py"
+    "sync:data": "uv run --with pandas --with pyarrow --with numpy python scripts/syncIdxRealData.py"
   },
   "dependencies": {
     "clsx": "^2.1.1",

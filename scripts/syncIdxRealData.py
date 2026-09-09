@@ -17,18 +17,18 @@ import numpy as np
 
 def resolve_paths():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    idx_bei_dir = os.path.abspath(os.path.join(base_dir, "..", "idx-bei-main"))
+    # Primary data directory is self-contained within idx-bsjp-screener repository
+    data_dir = os.path.join(base_dir, "data")
+    os.makedirs(data_dir, exist_ok=True)
     
-    if not os.path.exists(idx_bei_dir):
-        # Alternative path
+    # Optional fallback if local files need initial population
+    fallback_dir = os.path.abspath(os.path.join(base_dir, "..", "idx-bei-main"))
+    if not os.path.exists(fallback_dir):
         alt_path = os.path.join("D:", os.sep, "Workspace", "idx-bei-main")
         if os.path.exists(alt_path):
-            idx_bei_dir = alt_path
+            fallback_dir = alt_path
 
-    out_data_dir = os.path.join(base_dir, "data")
-    os.makedirs(out_data_dir, exist_ok=True)
-    
-    return base_dir, idx_bei_dir, out_data_dir
+    return base_dir, data_dir, fallback_dir
 
 def get_idx_tick_size(price: float) -> int:
     if price < 200:
@@ -44,16 +44,19 @@ def get_idx_tick_size(price: float) -> int:
 
 def main():
     t_start = time.time()
-    base_dir, idx_bei_dir, out_data_dir = resolve_paths()
+    base_dir, data_dir, fallback_dir = resolve_paths()
     
     print(f"[*] Base Directory: {base_dir}")
-    print(f"[*] IDX-BEI Directory: {idx_bei_dir}")
-    print(f"[*] Output Data Directory: {out_data_dir}")
+    print(f"[*] Repository Data Directory: {data_dir}")
 
-    # 1. Load All Companies metadata
-    all_companies_path = os.path.join(idx_bei_dir, "data", "allCompanies.json")
+    # 1. Load All Companies metadata (internal repository)
+    all_companies_path = os.path.join(data_dir, "allCompanies.json")
+    if not os.path.exists(all_companies_path) and os.path.exists(os.path.join(fallback_dir, "data", "allCompanies.json")):
+        all_companies_path = os.path.join(fallback_dir, "data", "allCompanies.json")
+
     companies_meta = {}
     if os.path.exists(all_companies_path):
+        print(f"[+] Reading company profiles from: {all_companies_path}")
         with open(all_companies_path, "r", encoding="utf-8") as f:
             raw_c = json.load(f)
             data_list = raw_c.get("data", []) if isinstance(raw_c, dict) else raw_c
@@ -70,8 +73,11 @@ def main():
                     }
     print(f"[+] Loaded {len(companies_meta)} company profiles from allCompanies.json")
 
-    # 2. Load latest briefing for smart money signals
-    briefing_files = sorted(glob.glob(os.path.join(idx_bei_dir, "data", "briefings", "briefing_*.json")))
+    # 2. Load latest briefing for smart money signals (internal repository)
+    briefing_files = sorted(glob.glob(os.path.join(data_dir, "briefings", "briefing_*.json")))
+    if not briefing_files and os.path.exists(os.path.join(fallback_dir, "data", "briefings")):
+        briefing_files = sorted(glob.glob(os.path.join(fallback_dir, "data", "briefings", "briefing_*.json")))
+
     latest_briefing = None
     stealth_map = {}
     alpha_map = {}
@@ -81,7 +87,7 @@ def main():
     
     if briefing_files:
         latest_briefing_file = briefing_files[-1]
-        print(f"[+] Found latest briefing: {os.path.basename(latest_briefing_file)}")
+        print(f"[+] Found latest briefing: {os.path.basename(latest_briefing_file)} ({latest_briefing_file})")
         with open(latest_briefing_file, "r", encoding="utf-8") as f:
             latest_briefing = json.load(f)
 
@@ -113,22 +119,27 @@ def main():
         briefing_bandarmology = latest_briefing.get("bandarmology_summary", {})
         top_brokers_meta = latest_briefing.get("top_brokers", [])
 
-    # 3. Load 2026 time-series parquet data
-    parquet_pattern = os.path.join(idx_bei_dir, "data", "timeseries", "stock_summary", "year=2026", "*.parquet")
+    # 3. Load 2026 time-series parquet data (internal repository)
+    parquet_pattern = os.path.join(data_dir, "timeseries", "stock_summary", "year=2026", "*.parquet")
     parquet_files = sorted(glob.glob(parquet_pattern))
+    if not parquet_files:
+        parquet_files = sorted(glob.glob(os.path.join(data_dir, "timeseries", "**", "*.parquet"), recursive=True))
+    if not parquet_files and os.path.exists(fallback_dir):
+        parquet_files = sorted(glob.glob(os.path.join(fallback_dir, "data", "timeseries", "stock_summary", "year=2026", "*.parquet")))
     
     if not parquet_files:
-        print("[!] No parquet files found! Falling back to companySummaryByKodeEmiten.json if present.")
-        # Fallback check
-        summary_json = os.path.join(idx_bei_dir, "data", "companySummaryByKodeEmiten.json")
+        print("[!] No parquet files found! Checking companySummaryByKodeEmiten.json...")
+        summary_json = os.path.join(data_dir, "companySummaryByKodeEmiten.json")
+        if not os.path.exists(summary_json) and os.path.exists(os.path.join(fallback_dir, "data", "companySummaryByKodeEmiten.json")):
+            summary_json = os.path.join(fallback_dir, "data", "companySummaryByKodeEmiten.json")
         if not os.path.exists(summary_json):
-            print("[ERROR] Neither parquet nor summary JSON found.")
+            print("[ERROR] Neither parquet nor summary JSON found in repository data directory.")
             sys.exit(1)
         with open(summary_json, "r", encoding="utf-8") as f:
             all_df = pd.DataFrame(json.load(f).get("data", []))
             all_df["Date"] = pd.to_datetime(all_df["Date"])
     else:
-        print(f"[+] Reading {len(parquet_files)} parquet partition files...")
+        print(f"[+] Reading {len(parquet_files)} internal parquet partition files...")
         dfs = [pd.read_parquet(f) for f in parquet_files]
         all_df = pd.concat(dfs, ignore_index=True)
         all_df["Date"] = pd.to_datetime(all_df["Date"])
@@ -365,7 +376,7 @@ def main():
         stock_candidates.append(stock_record)
 
     # Save realIdxSnapshot.json
-    out_snapshot_path = os.path.join(out_data_dir, "realIdxSnapshot.json")
+    out_snapshot_path = os.path.join(data_dir, "realIdxSnapshot.json")
     with open(out_snapshot_path, "w", encoding="utf-8") as f:
         json.dump({
             "tradeDate": latest_date.strftime("%Y-%m-%d"),
@@ -413,7 +424,7 @@ def main():
         "topBrokers": top_brokers_meta
     }
 
-    out_overview_path = os.path.join(out_data_dir, "realMarketOverview.json")
+    out_overview_path = os.path.join(data_dir, "realMarketOverview.json")
     with open(out_overview_path, "w", encoding="utf-8") as f:
         json.dump(overview_payload, f, indent=2)
     print(f"[OK] Saved real market overview to {out_overview_path}")

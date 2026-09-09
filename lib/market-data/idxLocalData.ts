@@ -39,8 +39,6 @@ export function getIdxCompanyMaster(): IdxCompanyInfo[] {
 
   const candidatePaths = [
     path.join(process.cwd(), "data", "allCompanies.json"),
-    path.join(process.cwd(), "..", "idx-bei-main", "data", "allCompanies.json"),
-    path.join("d:", "Workspace", "idx-bei-main", "data", "allCompanies.json"),
   ];
 
   for (const p of candidatePaths) {
@@ -78,7 +76,6 @@ export function getRealIdxStockSnapshots(): RealStockSnapshotItem[] {
 
   const candidatePaths = [
     path.join(process.cwd(), "data", "realIdxSnapshot.json"),
-    path.join("d:", "Workspace", "idx-bsjp-screener", "data", "realIdxSnapshot.json"),
   ];
 
   for (const p of candidatePaths) {
@@ -109,7 +106,6 @@ export function getRealMarketOverview(): MarketOverview | null {
 
   const candidatePaths = [
     path.join(process.cwd(), "data", "realMarketOverview.json"),
-    path.join("d:", "Workspace", "idx-bsjp-screener", "data", "realMarketOverview.json"),
   ];
 
   for (const p of candidatePaths) {

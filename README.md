@@ -73,7 +73,7 @@ idx-bsjp-screener/
 │   │   └── indicators.ts            # EMA, ADV, IDX tick sizes, Proximity to High formulas
 │   └── utils.ts                     # Formatting for IDR currency, lots, numbers
 ├── scripts/
-│   ├── syncIdxRealData.py           # Sync & aggregate 960+ IDX stocks from idx-bei
+│   ├── syncIdxRealData.py           # Sync & aggregate 960+ IDX stocks from internal data/
 │   ├── testEngine.mjs               # Mathematical assertion test suite
 │   └── testRealScreener.mjs         # Real snapshot verification test suite
 ├── types/
@@ -114,7 +114,7 @@ Configure any desired external keys:
 
 ### 3. Sync Real IDX Data & Verification
 ```bash
-# Sync 960+ stocks from idx-bei dataset
+# Sync 960+ stocks from self-contained repository data/ directory
 npm run sync:data
 
 # Run BSJP math assertions & real dataset verifier
