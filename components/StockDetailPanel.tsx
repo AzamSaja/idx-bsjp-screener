@@ -34,7 +34,7 @@ export const StockDetailPanel: React.FC<StockDetailPanelProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<"chart" | "plan" | "broker" | "orderbook">("chart");
   const [timeframe, setTimeframe] = useState<"15m" | "1d">("1d");
-  const [chartBars, setChartBars] = useState<OHLCVBar[]>([]);
+  const [chartsData, setChartsData] = useState<{ daily: OHLCVBar[]; intraday15m: OHLCVBar[] } | null>(null);
   const [isLoadingChart, setIsLoadingChart] = useState(false);
 
   useEffect(() => {
@@ -43,12 +43,14 @@ export const StockDetailPanel: React.FC<StockDetailPanelProps> = ({
     let isMounted = true;
     setIsLoadingChart(true);
 
-    fetch(`/api/stocks/${candidate.stock.ticker}`)
+    const ticker = candidate.stock.ticker;
+    const lastPrice = candidate.stock.lastPrice;
+
+    fetch(`/api/stocks/${ticker}?lastPrice=${lastPrice}`)
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && data.success && data.data?.charts) {
-          const bars = timeframe === "15m" ? data.data.charts.intraday15m : data.data.charts.daily;
-          setChartBars(bars || []);
+          setChartsData(data.data.charts);
         }
       })
       .catch((err) => console.error("Error fetching stock charts:", err))
@@ -59,7 +61,12 @@ export const StockDetailPanel: React.FC<StockDetailPanelProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [candidate?.stock.ticker, timeframe]);
+  }, [candidate?.stock?.ticker, candidate?.stock?.lastPrice]);
+
+  const currentBars =
+    timeframe === "15m"
+      ? (chartsData?.intraday15m || [])
+      : (chartsData?.daily || []);
 
   if (!candidate) return null;
 
@@ -210,7 +217,7 @@ export const StockDetailPanel: React.FC<StockDetailPanelProps> = ({
           <div className="space-y-4">
             <CandlestickChart
               ticker={stock.ticker}
-              bars={chartBars}
+              bars={currentBars}
               timeframe={timeframe}
               onTimeframeChange={setTimeframe}
               isLoading={isLoadingChart}

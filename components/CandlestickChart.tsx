@@ -42,9 +42,10 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
     }
 
     const container = chartContainerRef.current;
+    const initialWidth = container.clientWidth > 0 ? container.clientWidth : 650;
 
     const chart = createChart(container, {
-      width: container.clientWidth,
+      width: initialWidth,
       height: 380,
       layout: {
         background: { type: ColorType.Solid, color: "#0c0e14" },
@@ -75,7 +76,41 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
 
     chartRef.current = chart;
 
-    // 1. Candlestick Series
+    // 1. Sanitize, deduplicate, and sort bars
+    const barMap = new Map<
+      string | number,
+      { time: any; open: number; high: number; low: number; close: number; volume: number }
+    >();
+
+    for (const b of bars) {
+      if (!b || b.time === undefined || b.time === null) continue;
+      const open = Number(b.open);
+      const close = Number(b.close);
+      if (isNaN(open) || isNaN(close) || open <= 0 || close <= 0) continue;
+      const high = Math.max(Number(b.high) || open, open, close);
+      const low = Math.min(Number(b.low) || close, open, close);
+      const volume = Math.max(0, Number(b.volume) || 0);
+
+      let t: any = b.time;
+      if (timeframe === "15m") {
+        t = typeof b.time === "number" ? Math.floor(b.time) : Math.floor(new Date(b.time).getTime() / 1000);
+      } else {
+        t = typeof b.time === "string" ? b.time.slice(0, 10) : new Date(b.time * 1000).toISOString().slice(0, 10);
+      }
+
+      barMap.set(t, { time: t, open, high, low, close, volume });
+    }
+
+    const cleanBars = Array.from(barMap.values()).sort((a, b) => {
+      if (typeof a.time === "number" && typeof b.time === "number") {
+        return a.time - b.time;
+      }
+      return String(a.time).localeCompare(String(b.time));
+    });
+
+    if (cleanBars.length === 0) return;
+
+    // 2. Candlestick Series
     const candleSeries = chart.addSeries(CandlestickSeries, {
       upColor: "#10b981",
       downColor: "#ef4444",
@@ -85,18 +120,17 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
       wickDownColor: "#ef4444",
     });
 
-    // Format bars for Lightweight Charts
-    const formattedCandles = bars.map((b) => ({
-      time: b.time as any,
-      open: b.open,
-      high: b.high,
-      low: b.low,
-      close: b.close,
-    }));
+    candleSeries.setData(
+      cleanBars.map((b) => ({
+        time: b.time,
+        open: b.open,
+        high: b.high,
+        low: b.low,
+        close: b.close,
+      }))
+    );
 
-    candleSeries.setData(formattedCandles);
-
-    // 2. Volume Histogram Series (on separate bottom scale)
+    // 3. Volume Histogram Series (on separate bottom scale)
     const volumeSeries = chart.addSeries(HistogramSeries, {
       color: "#38bdf8",
       priceFormat: {
@@ -112,34 +146,33 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
       },
     });
 
-    const volumeData = bars.map((b) => ({
-      time: b.time as any,
+    const volumeData = cleanBars.map((b) => ({
+      time: b.time,
       value: b.volume,
       color: b.close >= b.open ? "rgba(16, 185, 129, 0.45)" : "rgba(239, 68, 68, 0.45)",
     }));
 
     volumeSeries.setData(volumeData);
 
-    // 3. EMA 20 Overlay (Blue)
-    const closePrices = bars.map((b) => b.close);
+    // 4. EMA 20 Overlay (Blue)
+    const closePrices = cleanBars.map((b) => b.close);
     const ema20Series = chart.addSeries(LineSeries, {
       color: "#38bdf8",
       lineWidth: 2,
       title: "EMA 20",
     });
 
-    // Compute rolling EMA 20
     const ema20Data: { time: any; value: number }[] = [];
-    for (let i = 0; i < bars.length; i++) {
+    for (let i = 0; i < cleanBars.length; i++) {
       if (i >= 5) {
         const slice = closePrices.slice(0, i + 1);
         const emaVal = calculateEMA(slice, 20);
-        ema20Data.push({ time: bars[i].time as any, value: Math.round(emaVal) });
+        ema20Data.push({ time: cleanBars[i].time, value: Math.round(emaVal) });
       }
     }
     ema20Series.setData(ema20Data);
 
-    // 4. EMA 50 Overlay (Amber)
+    // 5. EMA 50 Overlay (Amber)
     const ema50Series = chart.addSeries(LineSeries, {
       color: "#f59e0b",
       lineWidth: 1,
@@ -147,29 +180,42 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
     });
 
     const ema50Data: { time: any; value: number }[] = [];
-    for (let i = 0; i < bars.length; i++) {
+    for (let i = 0; i < cleanBars.length; i++) {
       if (i >= 10) {
         const slice = closePrices.slice(0, i + 1);
         const emaVal = calculateEMA(slice, 50);
-        ema50Data.push({ time: bars[i].time as any, value: Math.round(emaVal) });
+        ema50Data.push({ time: cleanBars[i].time, value: Math.round(emaVal) });
       }
     }
     ema50Series.setData(ema50Data);
 
     chart.timeScale().fitContent();
 
-    // Resize observer
+    // Resize observer to adapt whenever drawer slides in or container resizes
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!entries || entries.length === 0) return;
+      const width = entries[0].contentRect.width;
+      if (width > 0 && chartRef.current) {
+        chartRef.current.applyOptions({ width });
+        chartRef.current.timeScale().fitContent();
+      }
+    });
+
+    resizeObserver.observe(container);
+
     const handleResize = () => {
       if (chartContainerRef.current && chartRef.current) {
-        chartRef.current.applyOptions({
-          width: chartContainerRef.current.clientWidth,
-        });
+        const w = chartContainerRef.current.clientWidth;
+        if (w > 0) {
+          chartRef.current.applyOptions({ width: w });
+        }
       }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener("resize", handleResize);
       if (chartRef.current) {
         chartRef.current.remove();
@@ -230,6 +276,12 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
         {isLoading && (
           <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-xs flex items-center justify-center text-xs text-slate-300 font-mono">
             Loading Chart Bars...
+          </div>
+        )}
+        {!isLoading && bars.length === 0 && (
+          <div className="absolute inset-0 z-10 bg-surface-100/90 flex flex-col items-center justify-center text-xs text-slate-400 font-mono p-4 text-center">
+            <span className="text-slate-300 font-semibold mb-1">Data candlestick tidak tersedia untuk {ticker}</span>
+            <span className="text-slate-500 text-[11px]">Silakan beralih ke timeframe lain atau periksa koneksi data.</span>
           </div>
         )}
         <div ref={chartContainerRef} className="w-full h-[380px]" />
