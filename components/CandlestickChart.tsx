@@ -10,9 +10,12 @@ import {
   ISeriesApi,
   ColorType,
   CrosshairMode,
+  LineStyle,
 } from "lightweight-charts";
 import { OHLCVBar } from "@/types/stock";
+import { TimesFMForecast } from "@/types/forecast";
 import { calculateEMA } from "@/lib/screening/indicators";
+import { Sparkles } from "lucide-react";
 
 interface CandlestickChartProps {
   ticker: string;
@@ -20,6 +23,29 @@ interface CandlestickChartProps {
   timeframe: "15m" | "1d";
   onTimeframeChange: (tf: "15m" | "1d") => void;
   isLoading?: boolean;
+  forecast?: TimesFMForecast | null;
+}
+
+function getNextTradingDays(startDate: string | number, count: number): string[] {
+  const result: string[] = [];
+  let cur: Date;
+  if (typeof startDate === "number") {
+    cur = new Date(startDate * 1000);
+  } else {
+    cur = new Date(startDate);
+  }
+  if (isNaN(cur.getTime())) {
+    cur = new Date();
+  }
+
+  while (result.length < count) {
+    cur.setDate(cur.getDate() + 1);
+    const day = cur.getDay();
+    if (day !== 0 && day !== 6) {
+      result.push(cur.toISOString().slice(0, 10));
+    }
+  }
+  return result;
 }
 
 export const CandlestickChart: React.FC<CandlestickChartProps> = ({
@@ -28,9 +54,11 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
   timeframe,
   onTimeframeChange,
   isLoading,
+  forecast,
 }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
+  const [showForecast, setShowForecast] = useState(true);
 
   useEffect(() => {
     if (!chartContainerRef.current || bars.length === 0) return;
@@ -189,6 +217,71 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
     }
     ema50Series.setData(ema50Data);
 
+    // 6. TimesFM 3.0 Foundation Model Forecast Overlay (Dashed purple for P50, dotted purple for P90/P10)
+    if (showForecast && timeframe === "1d" && forecast && forecast.points && forecast.points.length > 0) {
+      const lastBar = cleanBars[cleanBars.length - 1];
+      const futureTradingDays = getNextTradingDays(lastBar.time, forecast.points.length);
+
+      const forecastSeries = chart.addSeries(LineSeries, {
+        color: "#c084fc",
+        lineWidth: 2,
+        lineStyle: LineStyle.Dashed,
+        title: "TimesFM P50",
+      });
+
+      const p90Series = chart.addSeries(LineSeries, {
+        color: "rgba(192, 132, 252, 0.45)",
+        lineWidth: 1,
+        lineStyle: LineStyle.Dotted,
+        title: "P90 Upper",
+      });
+
+      const p10Series = chart.addSeries(LineSeries, {
+        color: "rgba(192, 132, 252, 0.45)",
+        lineWidth: 1,
+        lineStyle: LineStyle.Dotted,
+        title: "P10 Lower",
+      });
+
+      const fcData: { time: any; value: number }[] = [{ time: lastBar.time, value: lastBar.close }];
+      const p90Data: { time: any; value: number }[] = [{ time: lastBar.time, value: lastBar.close }];
+      const p10Data: { time: any; value: number }[] = [{ time: lastBar.time, value: lastBar.close }];
+
+      for (let i = 0; i < forecast.points.length; i++) {
+        const pt = forecast.points[i];
+        const futureDate = futureTradingDays[i];
+        if (futureDate && pt && pt.price) {
+          fcData.push({ time: futureDate, value: pt.price });
+          p90Data.push({ time: futureDate, value: pt.p90 });
+          p10Data.push({ time: futureDate, value: pt.p10 });
+        }
+      }
+
+      // Safeguard: Ensure strict ascending uniqueness by timestamp
+      const sanitizeAscSeries = (arr: { time: any; value: number }[]) => {
+        const seen = new Set<string>();
+        const res: { time: any; value: number }[] = [];
+        for (const item of arr) {
+          const tStr = String(item.time);
+          if (!seen.has(tStr)) {
+            seen.add(tStr);
+            res.push(item);
+          }
+        }
+        return res.sort((a, b) => String(a.time).localeCompare(String(b.time)));
+      };
+
+      const cleanFcData = sanitizeAscSeries(fcData);
+      const cleanP90Data = sanitizeAscSeries(p90Data);
+      const cleanP10Data = sanitizeAscSeries(p10Data);
+
+      if (cleanFcData.length > 1) {
+        forecastSeries.setData(cleanFcData);
+        p90Series.setData(cleanP90Data);
+        p10Series.setData(cleanP10Data);
+      }
+    }
+
     chart.timeScale().fitContent();
 
     // Resize observer to adapt whenever drawer slides in or container resizes
@@ -222,7 +315,7 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
         chartRef.current = null;
       }
     };
-  }, [bars, timeframe]);
+  }, [bars, timeframe, forecast, showForecast]);
 
   return (
     <div className="w-full bg-[#0c0e14] rounded-lg border border-border overflow-hidden">
@@ -244,6 +337,21 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
               EMA(50)
             </span>
           </div>
+
+          {timeframe === "1d" && forecast && (
+            <button
+              onClick={() => setShowForecast(!showForecast)}
+              className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono transition border ${
+                showForecast
+                  ? "bg-purple-950/80 text-purple-300 border-purple-500/60 font-semibold"
+                  : "bg-surface-200 text-slate-400 border-border hover:text-slate-200"
+              }`}
+              title="Toggle Google TimesFM 3.0 AI forecast trajectory"
+            >
+              <Sparkles className="w-3 h-3 text-purple-400" />
+              <span>TimesFM AI</span>
+            </button>
+          )}
         </div>
 
         {/* Timeframe Switcher */}

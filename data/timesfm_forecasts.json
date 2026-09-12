@@ -1,0 +1,1782 @@
+{
+  "generatedAt": "2026-09-13T01:41:42.673918",
+  "totalForecasted": 25,
+  "model": "Google TimesFM 3.0 (330M PyTorch)",
+  "forecasts": {
+    "BBCA": {
+      "ticker": "BBCA",
+      "asOfDate": "2026-09-09",
+      "lastClose": 6525,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 6525,
+          "p10": 6375,
+          "p50": 6525,
+          "p90": 6675,
+          "changePct": 0.0
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 6525,
+          "p10": 6300,
+          "p50": 6525,
+          "p90": 6700,
+          "changePct": 0.0
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 6525,
+          "p10": 6275,
+          "p50": 6525,
+          "p90": 6750,
+          "changePct": 0.0
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 6500,
+          "p10": 6225,
+          "p50": 6500,
+          "p90": 6775,
+          "changePct": -0.38
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 6500,
+          "p10": 6200,
+          "p50": 6500,
+          "p90": 6775,
+          "changePct": -0.38
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 6525,
+        "changePct": 0.0,
+        "p10": 6375,
+        "p90": 6675
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 90,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.00%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:37.980581",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "ANTM": {
+      "ticker": "ANTM",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3200,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3190,
+          "p10": 3100,
+          "p50": 3190,
+          "p90": 3280,
+          "changePct": -0.31
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3180,
+          "p10": 3060,
+          "p50": 3180,
+          "p90": 3320,
+          "changePct": -0.62
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3180,
+          "p10": 3020,
+          "p50": 3180,
+          "p90": 3350,
+          "changePct": -0.62
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3170,
+          "p10": 2990,
+          "p50": 3170,
+          "p90": 3380,
+          "changePct": -0.94
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3160,
+          "p10": 2960,
+          "p50": 3160,
+          "p90": 3400,
+          "changePct": -1.25
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3190,
+        "changePct": -0.31,
+        "p10": 3100,
+        "p90": 3280
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 88,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-0.31%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:38.161381",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BIPI": {
+      "ticker": "BIPI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 158,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 157,
+          "p10": 147,
+          "p50": 157,
+          "p90": 166,
+          "changePct": -0.63
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 156,
+          "p10": 142,
+          "p50": 156,
+          "p90": 170,
+          "changePct": -1.27
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 156,
+          "p10": 139,
+          "p50": 156,
+          "p90": 173,
+          "changePct": -1.27
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 155,
+          "p10": 137,
+          "p50": 155,
+          "p90": 175,
+          "changePct": -1.9
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 155,
+          "p10": 135,
+          "p50": 155,
+          "p90": 176,
+          "changePct": -1.9
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 157,
+        "changePct": -0.63,
+        "p10": 147,
+        "p90": 166
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 75,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-0.63%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:38.364649",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "AMMN": {
+      "ticker": "AMMN",
+      "asOfDate": "2026-09-09",
+      "lastClose": 4910,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 4860,
+          "p10": 4650,
+          "p50": 4860,
+          "p90": 5100,
+          "changePct": -1.02
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 4840,
+          "p10": 4610,
+          "p50": 4840,
+          "p90": 5100,
+          "changePct": -1.43
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 4840,
+          "p10": 4590,
+          "p50": 4840,
+          "p90": 5125,
+          "changePct": -1.43
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 4850,
+          "p10": 4600,
+          "p50": 4850,
+          "p90": 5175,
+          "changePct": -1.22
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 4860,
+          "p10": 4610,
+          "p50": 4860,
+          "p90": 5175,
+          "changePct": -1.02
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 4860,
+        "changePct": -1.02,
+        "p10": 4650,
+        "p90": 5100
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 81,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-1.02%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:38.555992",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BMRI": {
+      "ticker": "BMRI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 4390,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 4360,
+          "p10": 4260,
+          "p50": 4360,
+          "p90": 4450,
+          "changePct": -0.68
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 4330,
+          "p10": 4190,
+          "p50": 4330,
+          "p90": 4460,
+          "changePct": -1.37
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 4300,
+          "p10": 4120,
+          "p50": 4300,
+          "p90": 4470,
+          "changePct": -2.05
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 4280,
+          "p10": 4080,
+          "p50": 4280,
+          "p90": 4490,
+          "changePct": -2.51
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 4260,
+          "p10": 4040,
+          "p50": 4260,
+          "p90": 4490,
+          "changePct": -2.96
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 4360,
+        "changePct": -0.68,
+        "p10": 4260,
+        "p90": 4450
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 91,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-0.68%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:38.768214",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BBRI": {
+      "ticker": "BBRI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3420,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3430,
+          "p10": 3370,
+          "p50": 3430,
+          "p90": 3490,
+          "changePct": 0.29
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3440,
+          "p10": 3370,
+          "p50": 3440,
+          "p90": 3520,
+          "changePct": 0.58
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3450,
+          "p10": 3370,
+          "p50": 3450,
+          "p90": 3540,
+          "changePct": 0.88
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3460,
+          "p10": 3380,
+          "p50": 3460,
+          "p90": 3570,
+          "changePct": 1.17
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3480,
+          "p10": 3390,
+          "p50": 3480,
+          "p90": 3590,
+          "changePct": 1.75
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3430,
+        "changePct": 0.29,
+        "p10": 3370,
+        "p90": 3490
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 92,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.29%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:38.975236",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BUMI": {
+      "ticker": "BUMI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 222,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 222,
+          "p10": 214,
+          "p50": 222,
+          "p90": 230,
+          "changePct": 0.0
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 222,
+          "p10": 212,
+          "p50": 222,
+          "p90": 232,
+          "changePct": 0.0
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 224,
+          "p10": 212,
+          "p50": 224,
+          "p90": 234,
+          "changePct": 0.9
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 226,
+          "p10": 214,
+          "p50": 226,
+          "p90": 236,
+          "changePct": 1.8
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 228,
+          "p10": 216,
+          "p50": 228,
+          "p90": 240,
+          "changePct": 2.7
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 222,
+        "changePct": 0.0,
+        "p10": 214,
+        "p90": 230
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 85,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.00%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:39.171576",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "PTBA": {
+      "ticker": "PTBA",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3100,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3120,
+          "p10": 3020,
+          "p50": 3120,
+          "p90": 3200,
+          "changePct": 0.65
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3140,
+          "p10": 2980,
+          "p50": 3140,
+          "p90": 3290,
+          "changePct": 1.29
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3150,
+          "p10": 2940,
+          "p50": 3150,
+          "p90": 3350,
+          "changePct": 1.61
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3150,
+          "p10": 2890,
+          "p50": 3150,
+          "p90": 3410,
+          "changePct": 1.61
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3150,
+          "p10": 2850,
+          "p50": 3150,
+          "p90": 3460,
+          "changePct": 1.61
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3120,
+        "changePct": 0.65,
+        "p10": 3020,
+        "p90": 3200
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 88,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.65%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:39.368152",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "TLKM": {
+      "ticker": "TLKM",
+      "asOfDate": "2026-09-09",
+      "lastClose": 2660,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 2650,
+          "p10": 2590,
+          "p50": 2650,
+          "p90": 2700,
+          "changePct": -0.38
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 2640,
+          "p10": 2580,
+          "p50": 2640,
+          "p90": 2720,
+          "changePct": -0.75
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 2640,
+          "p10": 2570,
+          "p50": 2640,
+          "p90": 2730,
+          "changePct": -0.75
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 2640,
+          "p10": 2560,
+          "p50": 2640,
+          "p90": 2740,
+          "changePct": -0.75
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 2640,
+          "p10": 2550,
+          "p50": 2640,
+          "p90": 2740,
+          "changePct": -0.75
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 2650,
+        "changePct": -0.38,
+        "p10": 2590,
+        "p90": 2700
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 91,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-0.38%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:39.559011",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "INDY": {
+      "ticker": "INDY",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3120,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3040,
+          "p10": 2870,
+          "p50": 3040,
+          "p90": 3230,
+          "changePct": -2.56
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3030,
+          "p10": 2850,
+          "p50": 3030,
+          "p90": 3250,
+          "changePct": -2.88
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3020,
+          "p10": 2840,
+          "p50": 3020,
+          "p90": 3260,
+          "changePct": -3.21
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3030,
+          "p10": 2850,
+          "p50": 3030,
+          "p90": 3270,
+          "changePct": -2.88
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3050,
+          "p10": 2860,
+          "p50": 3050,
+          "p90": 3290,
+          "changePct": -2.24
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3040,
+        "changePct": -2.56,
+        "p10": 2870,
+        "p90": 3230
+      },
+      "sentiment": "BEARISH",
+      "confidenceScore": 76,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-2.56%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:39.751727",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "TINS": {
+      "ticker": "TINS",
+      "asOfDate": "2026-09-09",
+      "lastClose": 4600,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 4540,
+          "p10": 4370,
+          "p50": 4540,
+          "p90": 4690,
+          "changePct": -1.3
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 4530,
+          "p10": 4320,
+          "p50": 4530,
+          "p90": 4710,
+          "changePct": -1.52
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 4540,
+          "p10": 4320,
+          "p50": 4540,
+          "p90": 4740,
+          "changePct": -1.3
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 4550,
+          "p10": 4320,
+          "p50": 4550,
+          "p90": 4770,
+          "changePct": -1.09
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 4570,
+          "p10": 4340,
+          "p50": 4570,
+          "p90": 4800,
+          "changePct": -0.65
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 4540,
+        "changePct": -1.3,
+        "p10": 4370,
+        "p90": 4690
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 86,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-1.30%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:39.969752",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "AADI": {
+      "ticker": "AADI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 12450,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 12275,
+          "p10": 11800,
+          "p50": 12275,
+          "p90": 12725,
+          "changePct": -1.41
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 12275,
+          "p10": 11725,
+          "p50": 12275,
+          "p90": 12850,
+          "changePct": -1.41
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 12300,
+          "p10": 11700,
+          "p50": 12300,
+          "p90": 12975,
+          "changePct": -1.2
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 12375,
+          "p10": 11750,
+          "p50": 12375,
+          "p90": 13125,
+          "changePct": -0.6
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 12450,
+          "p10": 11825,
+          "p50": 12450,
+          "p90": 13275,
+          "changePct": 0.0
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 12275,
+        "changePct": -1.41,
+        "p10": 11800,
+        "p90": 12725
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 85,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-1.41%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:40.161097",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "ISAT": {
+      "ticker": "ISAT",
+      "asOfDate": "2026-09-09",
+      "lastClose": 2400,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 2370,
+          "p10": 2270,
+          "p50": 2370,
+          "p90": 2480,
+          "changePct": -1.25
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 2360,
+          "p10": 2230,
+          "p50": 2360,
+          "p90": 2520,
+          "changePct": -1.67
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 2350,
+          "p10": 2190,
+          "p50": 2350,
+          "p90": 2540,
+          "changePct": -2.08
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 2350,
+          "p10": 2160,
+          "p50": 2350,
+          "p90": 2560,
+          "changePct": -2.08
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 2340,
+          "p10": 2130,
+          "p50": 2340,
+          "p90": 2580,
+          "changePct": -2.5
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 2370,
+        "changePct": -1.25,
+        "p10": 2270,
+        "p90": 2480
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 82,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-1.25%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:40.342913",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "DSSA": {
+      "ticker": "DSSA",
+      "asOfDate": "2026-09-09",
+      "lastClose": 1170,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 1180,
+          "p10": 1145,
+          "p50": 1180,
+          "p90": 1215,
+          "changePct": 0.85
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 1185,
+          "p10": 1130,
+          "p50": 1185,
+          "p90": 1240,
+          "changePct": 1.28
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 1195,
+          "p10": 1120,
+          "p50": 1195,
+          "p90": 1265,
+          "changePct": 2.14
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 1205,
+          "p10": 1115,
+          "p50": 1205,
+          "p90": 1295,
+          "changePct": 2.99
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 1220,
+          "p10": 1115,
+          "p50": 1220,
+          "p90": 1315,
+          "changePct": 4.27
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 1180,
+        "changePct": 0.85,
+        "p10": 1145,
+        "p90": 1215
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 88,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.85%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:40.534602",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "CUAN": {
+      "ticker": "CUAN",
+      "asOfDate": "2026-09-09",
+      "lastClose": 940,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 945,
+          "p10": 910,
+          "p50": 945,
+          "p90": 970,
+          "changePct": 0.53
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 950,
+          "p10": 900,
+          "p50": 950,
+          "p90": 985,
+          "changePct": 1.06
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 960,
+          "p10": 895,
+          "p50": 960,
+          "p90": 1000,
+          "changePct": 2.13
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 965,
+          "p10": 895,
+          "p50": 965,
+          "p90": 1010,
+          "changePct": 2.66
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 975,
+          "p10": 895,
+          "p50": 975,
+          "p90": 1020,
+          "changePct": 3.72
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 945,
+        "changePct": 0.53,
+        "p10": 910,
+        "p90": 970
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 87,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.53%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:40.718037",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "TPIA": {
+      "ticker": "TPIA",
+      "asOfDate": "2026-09-09",
+      "lastClose": 1935,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 1935,
+          "p10": 1870,
+          "p50": 1935,
+          "p90": 2010,
+          "changePct": 0.0
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 1940,
+          "p10": 1840,
+          "p50": 1940,
+          "p90": 2040,
+          "changePct": 0.26
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 1940,
+          "p10": 1820,
+          "p50": 1940,
+          "p90": 2070,
+          "changePct": 0.26
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 1945,
+          "p10": 1805,
+          "p50": 1945,
+          "p90": 2090,
+          "changePct": 0.52
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 1940,
+          "p10": 1795,
+          "p50": 1940,
+          "p90": 2100,
+          "changePct": 0.26
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 1935,
+        "changePct": 0.0,
+        "p10": 1870,
+        "p90": 2010
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 85,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.00%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:40.900511",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BBNI": {
+      "ticker": "BBNI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3820,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3830,
+          "p10": 3740,
+          "p50": 3830,
+          "p90": 3930,
+          "changePct": 0.26
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3850,
+          "p10": 3730,
+          "p50": 3850,
+          "p90": 3960,
+          "changePct": 0.79
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3860,
+          "p10": 3740,
+          "p50": 3860,
+          "p90": 3980,
+          "changePct": 1.05
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3880,
+          "p10": 3750,
+          "p50": 3880,
+          "p90": 4010,
+          "changePct": 1.57
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3900,
+          "p10": 3760,
+          "p50": 3900,
+          "p90": 4030,
+          "changePct": 2.09
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3830,
+        "changePct": 0.26,
+        "p10": 3740,
+        "p90": 3930
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 90,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.26%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:41.092951",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "CPIN": {
+      "ticker": "CPIN",
+      "asOfDate": "2026-09-09",
+      "lastClose": 3260,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 3220,
+          "p10": 3110,
+          "p50": 3220,
+          "p90": 3350,
+          "changePct": -1.23
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 3200,
+          "p10": 3070,
+          "p50": 3200,
+          "p90": 3350,
+          "changePct": -1.84
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 3200,
+          "p10": 3060,
+          "p50": 3200,
+          "p90": 3360,
+          "changePct": -1.84
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 3200,
+          "p10": 3050,
+          "p50": 3200,
+          "p90": 3370,
+          "changePct": -1.84
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 3190,
+          "p10": 3040,
+          "p50": 3190,
+          "p90": 3370,
+          "changePct": -2.15
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 3220,
+        "changePct": -1.23,
+        "p10": 3110,
+        "p90": 3350
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 85,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-1.23%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:41.278257",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "ADRO": {
+      "ticker": "ADRO",
+      "asOfDate": "2026-09-09",
+      "lastClose": 2690,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 2710,
+          "p10": 2660,
+          "p50": 2710,
+          "p90": 2770,
+          "changePct": 0.74
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 2720,
+          "p10": 2660,
+          "p50": 2720,
+          "p90": 2790,
+          "changePct": 1.12
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 2740,
+          "p10": 2670,
+          "p50": 2740,
+          "p90": 2810,
+          "changePct": 1.86
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 2750,
+          "p10": 2680,
+          "p50": 2750,
+          "p90": 2830,
+          "changePct": 2.23
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 2760,
+          "p10": 2690,
+          "p50": 2760,
+          "p90": 2850,
+          "changePct": 2.6
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 2710,
+        "changePct": 0.74,
+        "p10": 2660,
+        "p90": 2770
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 91,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.74%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:41.484564",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BULL": {
+      "ticker": "BULL",
+      "asOfDate": "2026-09-09",
+      "lastClose": 434,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 446,
+          "p10": 424,
+          "p50": 446,
+          "p90": 472,
+          "changePct": 2.76
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 450,
+          "p10": 424,
+          "p50": 450,
+          "p90": 482,
+          "changePct": 3.69
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 456,
+          "p10": 428,
+          "p50": 456,
+          "p90": 490,
+          "changePct": 5.07
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 460,
+          "p10": 430,
+          "p50": 460,
+          "p90": 496,
+          "changePct": 5.99
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 466,
+          "p10": 434,
+          "p50": 466,
+          "p90": 505,
+          "changePct": 7.37
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 446,
+        "changePct": 2.76,
+        "p10": 424,
+        "p90": 472
+      },
+      "sentiment": "BULLISH",
+      "confidenceScore": 77,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+2.76%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:41.695802",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "ASII": {
+      "ticker": "ASII",
+      "asOfDate": "2026-09-09",
+      "lastClose": 4850,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 4870,
+          "p10": 4770,
+          "p50": 4870,
+          "p90": 4980,
+          "changePct": 0.41
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 4860,
+          "p10": 4740,
+          "p50": 4860,
+          "p90": 5000,
+          "changePct": 0.21
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 4860,
+          "p10": 4720,
+          "p50": 4860,
+          "p90": 5025,
+          "changePct": 0.21
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 4860,
+          "p10": 4710,
+          "p50": 4860,
+          "p90": 5050,
+          "changePct": 0.21
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 4860,
+          "p10": 4700,
+          "p50": 4860,
+          "p90": 5075,
+          "changePct": 0.21
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 4870,
+        "changePct": 0.41,
+        "p10": 4770,
+        "p90": 4980
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 91,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.41%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:41.926025",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "COCO": {
+      "ticker": "COCO",
+      "asOfDate": "2026-09-09",
+      "lastClose": 144,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 143,
+          "p10": 126,
+          "p50": 143,
+          "p90": 171,
+          "changePct": -0.69
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 144,
+          "p10": 121,
+          "p50": 144,
+          "p90": 183,
+          "changePct": 0.0
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 145,
+          "p10": 117,
+          "p50": 145,
+          "p90": 195,
+          "changePct": 0.69
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 146,
+          "p10": 115,
+          "p50": 146,
+          "p90": 206,
+          "changePct": 1.39
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 149,
+          "p10": 115,
+          "p50": 149,
+          "p90": 224,
+          "changePct": 3.47
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 143,
+        "changePct": -0.69,
+        "p10": 126,
+        "p90": 171
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 50,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-0.69%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:42.106931",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "SINI": {
+      "ticker": "SINI",
+      "asOfDate": "2026-09-09",
+      "lastClose": 14250,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 13850,
+          "p10": 12750,
+          "p50": 13850,
+          "p90": 14950,
+          "changePct": -2.81
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 13425,
+          "p10": 11625,
+          "p50": 13425,
+          "p90": 15175,
+          "changePct": -5.79
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 13025,
+          "p10": 10600,
+          "p50": 13025,
+          "p90": 15400,
+          "changePct": -8.6
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 12725,
+          "p10": 9700,
+          "p50": 12725,
+          "p90": 15600,
+          "changePct": -10.7
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 12525,
+          "p10": 9050,
+          "p50": 12525,
+          "p90": 15975,
+          "changePct": -12.11
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 13850,
+        "changePct": -2.81,
+        "p10": 12750,
+        "p90": 14950
+      },
+      "sentiment": "BEARISH",
+      "confidenceScore": 69,
+      "bsjpAlignment": {
+        "aligned": false,
+        "verdict": "DIVERGENCE_WARNING",
+        "scoreMultiplier": 0.85,
+        "commentary": "TimesFM 3.0 indicates potential short-term pullback (-2.81%). Adhere to strict morning stop-loss (-2.5%) if entering."
+      },
+      "generatedAt": "2026-09-13T01:41:42.298928",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "UNTR": {
+      "ticker": "UNTR",
+      "asOfDate": "2026-09-09",
+      "lastClose": 26000,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 26000,
+          "p10": 25300,
+          "p50": 26000,
+          "p90": 26800,
+          "changePct": 0.0
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 25925,
+          "p10": 24950,
+          "p50": 25925,
+          "p90": 27175,
+          "changePct": -0.29
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 25875,
+          "p10": 24625,
+          "p50": 25875,
+          "p90": 27525,
+          "changePct": -0.48
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 25800,
+          "p10": 24375,
+          "p50": 25800,
+          "p90": 27775,
+          "changePct": -0.77
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 25725,
+          "p10": 24150,
+          "p50": 25725,
+          "p90": 27950,
+          "changePct": -1.06
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 26000,
+        "changePct": 0.0,
+        "p10": 25300,
+        "p90": 26800
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 88,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.00%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:42.488240",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    },
+    "BRMS": {
+      "ticker": "BRMS",
+      "asOfDate": "2026-09-09",
+      "lastClose": 705,
+      "horizon": 5,
+      "points": [
+        {
+          "step": 1,
+          "date": "2026-09-10",
+          "price": 710,
+          "p10": 685,
+          "p50": 710,
+          "p90": 740,
+          "changePct": 0.71
+        },
+        {
+          "step": 2,
+          "date": "2026-09-11",
+          "price": 720,
+          "p10": 685,
+          "p50": 720,
+          "p90": 765,
+          "changePct": 2.13
+        },
+        {
+          "step": 3,
+          "date": "2026-09-14",
+          "price": 730,
+          "p10": 690,
+          "p50": 730,
+          "p90": 785,
+          "changePct": 3.55
+        },
+        {
+          "step": 4,
+          "date": "2026-09-15",
+          "price": 745,
+          "p10": 690,
+          "p50": 745,
+          "p90": 805,
+          "changePct": 5.67
+        },
+        {
+          "step": 5,
+          "date": "2026-09-16",
+          "price": 755,
+          "p10": 695,
+          "p50": 755,
+          "p90": 820,
+          "changePct": 7.09
+        }
+      ],
+      "tPlus1": {
+        "date": "2026-09-10",
+        "price": 710,
+        "changePct": 0.71,
+        "p10": 685,
+        "p90": 740
+      },
+      "sentiment": "NEUTRAL",
+      "confidenceScore": 84,
+      "bsjpAlignment": {
+        "aligned": true,
+        "verdict": "MODERATE_CONVERGENCE",
+        "scoreMultiplier": 1.05,
+        "commentary": "TimesFM 3.0 projects mild consolidation/upside (+0.71%). Target Profit 1 (+2%) is achievable during morning opening liquidity spike."
+      },
+      "generatedAt": "2026-09-13T01:41:42.673893",
+      "model": "Google TimesFM 3.0 (330M PyTorch)",
+      "source": "TIMESFM_MODEL"
+    }
+  }
+}

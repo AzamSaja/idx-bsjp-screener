@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FilterPresetKey } from "@/types/screening";
-import { ShieldCheck, Zap, TrendingUp, Layers, ListFilter } from "lucide-react";
+import { ShieldCheck, Zap, TrendingUp, Layers, ListFilter, Sparkles } from "lucide-react";
 
 interface FilterPresetsProps {
   currentPreset: FilterPresetKey;
@@ -12,6 +12,7 @@ interface FilterPresetsProps {
     matchingPreset: number;
     passedStrictBsjp: number;
     strongBuyCount: number;
+    aiConfirmedCount?: number;
   };
 }
 
@@ -33,6 +34,13 @@ export const FilterPresets: React.FC<FilterPresetsProps> = ({
       description: "Passed all 8 deterministic liquidity, price, and risk criteria",
       icon: <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />,
       badgeCount: stats?.passedStrictBsjp,
+    },
+    {
+      key: "AI_CONFIRMED",
+      label: "TimesFM AI Confirmed",
+      description: "Google TimesFM 3.0 foundation model projects positive overnight momentum",
+      icon: <Sparkles className="w-3.5 h-3.5 text-purple-400" />,
+      badgeCount: stats?.aiConfirmedCount,
     },
     {
       key: "TOP_ACCUMULATION",

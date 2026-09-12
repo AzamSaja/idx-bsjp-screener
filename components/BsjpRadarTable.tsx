@@ -319,6 +319,21 @@ export const BsjpRadarTable: React.FC<BsjpRadarTableProps> = ({
                             {candidate.stock.notasiKhusus.join("")}
                           </span>
                         )}
+                        {candidate.timesfmForecast && (
+                          <span
+                            className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold flex items-center gap-0.5 shadow-sm ${
+                              candidate.timesfmForecast.verdict === "CONFIRMED_BY_AI"
+                                ? "bg-purple-950 text-purple-300 border border-purple-700/70"
+                                : candidate.timesfmForecast.tPlus1ChangePct >= 0
+                                ? "bg-blue-950 text-blue-300 border border-blue-800"
+                                : "bg-surface-50 text-slate-400 border border-border"
+                            }`}
+                            title={`Google TimesFM 3.0 Foundation Forecast: ${candidate.timesfmForecast.tPlus1ChangePct >= 0 ? "+" : ""}${candidate.timesfmForecast.tPlus1ChangePct.toFixed(2)}% (${candidate.timesfmForecast.verdict})`}
+                          >
+                            <Sparkles className="w-2.5 h-2.5 text-purple-400" />
+                            AI {candidate.timesfmForecast.tPlus1ChangePct >= 0 ? "+" : ""}{candidate.timesfmForecast.tPlus1ChangePct.toFixed(1)}%
+                          </span>
+                        )}
                       </div>
                       <div className="text-[11px] text-slate-400 truncate max-w-[140px] font-sans">
                         {candidate.stock.companyName}

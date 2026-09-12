@@ -64,3 +64,4 @@ jobs:
           TIMESTAMP=$(date -u -d '+7 hours' '+%Y-%m-%d %H:%M WIB')
           git commit -m "chore(data): auto-sync IDX BSJP market snapshot ($TIMESTAMP)"
           git push origin main
+

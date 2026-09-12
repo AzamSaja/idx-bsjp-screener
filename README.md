@@ -5,6 +5,7 @@ A fast, production-ready full-stack quantitative equity terminal designed to tra
 ![IDX BSJP Terminal](https://img.shields.io/badge/IDX-Equity%20Terminal-blue?style=for-the-badge)
 ![Next.js 15](https://img.shields.io/badge/Next.js-15%20(App%20Router)-black?style=for-the-badge&logo=next.js)
 ![React 19](https://img.shields.io/badge/React-19-cyan?style=for-the-badge&logo=react)
+![Google TimesFM 3.0](https://img.shields.io/badge/TimesFM--3.0-Google%20Research-9333ea?style=for-the-badge)
 ![TradingView](https://img.shields.io/badge/Lightweight--Charts-TradingView-blueviolet?style=for-the-badge)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Dark%20Terminal-38bdf8?style=for-the-badge&logo=tailwindcss)
 
@@ -42,6 +43,7 @@ idx-bsjp-screener/
 │   ├── api/
 │   │   ├── alerts/webhook/route.ts  # Discord / Telegram automated alert dispatch
 │   │   ├── export/route.ts          # Watchlist exporter (Stockbit, Mirae, Mandiri)
+│   │   ├── forecast/[ticker]/route.ts # Google TimesFM 3.0 probabilistic forecasting API
 │   │   ├── market-overview/route.ts # IHSG index, turnover, foreign net flow, WIB session
 │   │   ├── screen/route.ts          # Deterministic BSJP screener & scoring API
 │   │   └── stocks/[ticker]/route.ts # OHLCV charts, orderbook & broker detail
@@ -52,14 +54,15 @@ idx-bsjp-screener/
 │   ├── AlertWebhookModal.tsx        # Discord/Telegram webhook dispatch modal
 │   ├── BidAskDepthCard.tsx          # 10-level pre-closing orderbook queue visualizer
 │   ├── BrokerSummaryBar.tsx         # Top-5 Buyer vs Seller distribution & Foreign Flow
-│   ├── BsjpRadarTable.tsx           # High-density sorting table with action signals
-│   ├── CandlestickChart.tsx         # TradingView Lightweight Charts (15m & Daily + EMA)
+│   ├── BsjpRadarTable.tsx           # High-density sorting table with action signals & AI badge
+│   ├── CandlestickChart.tsx         # TradingView Lightweight Charts with TimesFM AI overlay
 │   ├── ExportModal.tsx              # Stockbit, Mirae HOTS, Mandiri MOST watchlist export
-│   ├── FilterPresets.tsx            # Preset quick buttons (Strict, Accum, 52W, High Liq)
+│   ├── FilterPresets.tsx            # Preset quick buttons (Strict, AI Confirmed, Accum, 52W)
 │   ├── Header.tsx                   # Terminal branding, WIB clock, session indicator
 │   ├── MarketOverviewBar.tsx        # Live IHSG, Foreign Flow, Advancers/Decliners
 │   ├── SettingsModal.tsx            # Parameter sliders for quantitative thresholds
-│   ├── StockDetailPanel.tsx         # Deep-dive side panel with multi-tab analysis
+│   ├── StockDetailPanel.tsx         # Deep-dive side panel with multi-tab analysis & TimesFM AI
+│   ├── TimesFmForecastCard.tsx      # Google TimesFM 3.0 T+1 exit & quantile visualizer
 │   └── TradePlanCard.tsx            # Automated Entry, TP1, TP2, Stop-loss & R:R calculator
 ├── lib/
 │   ├── market-data/
@@ -112,10 +115,16 @@ Configure any desired external keys:
 - `TELEGRAM_BOT_TOKEN` & `TELEGRAM_CHAT_ID`: For Telegram broadcasts.
 - `NEXT_PUBLIC_SUPABASE_URL` / `KEY`: For persistent user watchlists.
 
-### 3. Sync Real IDX Data & Verification
+### 3. Sync Real IDX Data & Machine Learning Forecasts
 ```bash
 # Sync 960+ stocks from self-contained repository data/ directory
 npm run sync:data
+
+# Precompute Google TimesFM 3.0 (330M PyTorch) AI forecasts for top candidates
+npm run forecast:timesfm
+
+# (Optional) Run single-ticker on-demand forecast via CLI
+uv run --with timesfm --with torch --with pandas --with pyarrow python scripts/forecastTimesFM.py --ticker BBRI --horizon 5
 
 # Run BSJP math assertions & real dataset verifier
 node scripts/testEngine.mjs
@@ -154,15 +163,22 @@ Displays real-time IDX market metrics:
 - **Market Breadth:** Advancers (green), Decliners (red), Unchanged (neutral).
 - **Session Phase Indicator:** Current WIB phase (Session 1, Session 2, Pre-Closing 15:50–16:00 WIB, Post-Closing, or Market Closed).
 
-### 2. BSJP Radar Table
+### 2. BSJP Radar Table & AI Confirmed Preset
 - Sortable ranking table powered by the composite **BSJP Score (0–100)**.
+- **TimesFM AI Badges:** Real-time indicator showing predicted T+1 return (e.g. `AI +2.8%`).
+- **AI Confirmed Preset Filter:** One-click filter to isolate candidates where Google TimesFM 3.0 confirms positive overnight continuation.
 - Color-coded price changes, volume vs. 20-ADV ratio, turnover, and closeness to day high.
 - Badges for **Notasi Khusus** (e.g. `X`, `E`) and **FCA** (Papan Pemantauan Khusus).
 - Signals: `STRONG_BUY`, `BUY`, `WATCH`, `OVEREXTENDED` (ARA warning), and `AVOID`.
 
 ### 3. Deep Dive Analysis Drawer
 Clicking any candidate opens a panel featuring:
-- **TradingView Lightweight Charts:** Switch between 15-minute intraday and Daily candles with EMA 20 (blue line), EMA 50 (amber line), and volume histogram.
+- **TradingView Lightweight Charts:** Switch between 15-minute intraday and Daily candles with EMA 20 (blue line), EMA 50 (amber line), and volume histogram. Includes a **TimesFM AI Forecast** toggle extending projected future price trajectories and P10/P90 prediction corridors.
+- **TimesFM 3.0 AI Forecast Tab:** Dedicated foundation model tab featuring:
+  * **T+1 BSJP Morning Exit Target:** Expected exit price for 09:00 WIB session and % return.
+  * **BSJP Alignment Verdict:** Institutional status (`AI CONFIRMED`, `MODERATE CONVERGENCE`, `DIVERGENCE WARNING`).
+  * **5-Day Multi-Horizon Grid:** Step-by-step projection with P10 (bearish floor) and P90 (bullish breakout ceiling).
+  * **On-Demand Inference Button:** Live re-computation with real-time feedback.
 - **Suggested Trade Plan Card:** Automated Entry (closing auction), TP1 (+1.8% to +2.2%), TP2 (+3.0% to +3.8%), Strict Morning Cut-Loss (-2% to -3%), and Risk-to-Reward Ratio ($RR \ge 1:1.5$).
 - **Bandarmology Summary Bar:** Top 5 Buyer vs. Seller distribution, broker codes (AK, ZP, BK, CC, YP, PD), and institutional vs. domestic classification.
 - **Pre-Closing Orderbook Stack:** 10-level bid stack depth vs. ask wall right before 15:50 WIB.

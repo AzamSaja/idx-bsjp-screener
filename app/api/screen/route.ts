@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 import { getAllStockSnapshots } from "@/lib/market-data/mockFeed";
 import { getRealIdxStockSnapshots, hasRealDataAvailable } from "@/lib/market-data/idxLocalData";
 import { screenStock } from "@/lib/screening/bsjpEngine";
@@ -63,6 +65,32 @@ export async function GET(request: NextRequest) {
       );
     });
 
+    // Load cached TimesFM 3.0 forecasts if present
+    const cacheFilePath = path.join(process.cwd(), "data", "timesfm_forecasts.json");
+    let forecastMap: Record<string, any> = {};
+    if (fs.existsSync(cacheFilePath)) {
+      try {
+        const raw = fs.readFileSync(cacheFilePath, "utf-8");
+        const parsed = JSON.parse(raw);
+        forecastMap = parsed.forecasts || {};
+      } catch (e) {
+        console.warn("Failed to parse timesfm_forecasts.json:", e);
+      }
+    }
+
+    // Attach TimesFM forecast metadata to candidates
+    candidates.forEach((c) => {
+      const fc = forecastMap[c.stock.ticker];
+      if (fc && fc.tPlus1 && fc.bsjpAlignment) {
+        c.timesfmForecast = {
+          tPlus1ChangePct: fc.tPlus1.changePct,
+          tPlus1Price: fc.tPlus1.price,
+          verdict: fc.bsjpAlignment.verdict,
+          confidence: fc.confidenceScore || 85,
+        };
+      }
+    });
+
     // Apply quick filters preset
     if (preset === "STRICT_BSJP") {
       candidates = candidates.filter((c) => c.passedFilters);
@@ -79,6 +107,12 @@ export async function GET(request: NextRequest) {
       );
     } else if (preset === "HIGH_LIQUIDITY") {
       candidates = candidates.filter((c) => c.stock.valueIdr >= 10_000_000_000);
+    } else if (preset === "AI_CONFIRMED") {
+      candidates = candidates.filter(
+        (c) =>
+          c.timesfmForecast?.verdict === "CONFIRMED_BY_AI" ||
+          (c.timesfmForecast && c.timesfmForecast.tPlus1ChangePct > 0)
+      );
     }
 
     // Sort descending by BSJP composite score (0 - 100)
@@ -89,6 +123,7 @@ export async function GET(request: NextRequest) {
       matchingPreset: candidates.length,
       passedStrictBsjp: candidates.filter((c) => c.passedFilters).length,
       strongBuyCount: candidates.filter((c) => c.signal === "STRONG_BUY").length,
+      aiConfirmedCount: candidates.filter((c) => c.timesfmForecast?.verdict === "CONFIRMED_BY_AI").length,
       dataSource: isReal ? "REAL" : "SIMULATION",
     };
 

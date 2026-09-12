@@ -44,6 +44,13 @@ export interface BriefingMetadata {
   auditOpinion?: string | null;
 }
 
+export interface TimesFmCandidateMeta {
+  tPlus1ChangePct: number;
+  tPlus1Price: number;
+  verdict: "CONFIRMED_BY_AI" | "MODERATE_CONVERGENCE" | "DIVERGENCE_WARNING";
+  confidence: number;
+}
+
 export interface BsjpCandidate {
   stock: StockQuote;
   brokerSummary: BrokerSummary;
@@ -56,6 +63,7 @@ export interface BsjpCandidate {
   failedRules: string[];
   proximityToHighPct: number;   // 100% means closed at absolute High
   briefingMeta?: BriefingMetadata;
+  timesfmForecast?: TimesFmCandidateMeta;
 }
 
 export type FilterPresetKey = 
@@ -63,5 +71,6 @@ export type FilterPresetKey =
   | "STRICT_BSJP"
   | "TOP_ACCUMULATION"
   | "BREAKOUT_52W"
-  | "HIGH_LIQUIDITY";
+  | "HIGH_LIQUIDITY"
+  | "AI_CONFIRMED";
 
